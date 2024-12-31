@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h2 class="text-center mb-0">TXT转PDF转换器</h2>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info" role="alert">
+                    <h5 class="alert-heading">使用说明：</h5>
+                    <ul class="mb-0">
+                        <li>支持上传TXT格式的文本文件</li>
+                        <li>文件大小限制为10MB</li>
+                        <li>自动进行文本排版和格式化</li>
+                        <li>转换完成后自动下载PDF文件</li>
+                    </ul>
+                </div>
+
+                <form action="{{ url_for('main.convert') }}" method="post" enctype="multipart/form-data"
+                    id="convertForm">
+                    <div class="mb-4">
+                        <div class="custom-file-container">
+                            <label for="txtFile" class="form-label">
+                                <i class="fas fa-file-upload me-2"></i>选择TXT文件
+                            </label>
+                            <input type="file" class="form-control" id="txtFile" name="txtFile" accept=".txt" required>
+                            <div id="fileHelp" class="form-text">
+                                请选择一个TXT格式的文本文件
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-lg px-5">
+                            <i class="fas fa-sync-alt me-2"></i>
+                            <span>转换为PDF</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- 转换状态提示 -->
+        <div id="convertStatus" class="mt-4" style="display: none;">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="spinner-border text-primary me-3" role="status">
+                            <span class="visually-hidden">转换中...</span>
+                        </div>
+                        <div>
+                            <h5 class="mb-1">正在处理文件...</h5>
+                            <p class="mb-0 text-muted" id="statusText">请稍候，文件正在转换中</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 错误提示 -->
+        <div id="errorAlert" class="alert alert-danger mt-4" style="display: none;" role="alert">
+            <h5 class="alert-heading">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                转换失败
+            </h5>
+            <p class="mb-0" id="errorText"></p>
+        </div>
+    </div>
+</div>
+
+<!-- 添加Font Awesome图标支持 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<style>
+    .custom-file-container {
+        border: 2px dashed #dee2e6;
+        border-radius: 0.5rem;
+        padding: 2rem;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    .custom-file-container:hover {
+        border-color: #0d6efd;
+        background-color: #f8f9fa;
+    }
+
+    .custom-file-container input[type="file"] {
+        margin-top: 1rem;
+    }
+
+    .card {
+        border: none;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    }
+
+    .card-header {
+        border-bottom: none;
+    }
+
+    .btn-lg {
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+    }
+
+    .alert-info {
+        background-color: #f8f9fa;
+        border-left: 4px solid #0dcaf0;
+        border-top: none;
+        border-right: none;
+        border-bottom: none;
+    }
+
+    .alert-info ul {
+        padding-left: 1.2rem;
+    }
+
+    .alert-info li {
+        margin-bottom: 0.5rem;
+    }
+
+    .alert-info li:last-child {
+        margin-bottom: 0;
+    }
+
+    #convertStatus .card {
+        background-color: #f8f9fa;
+    }
+
+    .spinner-border {
+        width: 2rem;
+        height: 2rem;
+    }
+</style>
+{% endblock %}

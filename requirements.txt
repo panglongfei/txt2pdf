@@ -1,0 +1,8 @@
+setuptools>=65.5.1
+Flask>=2.0.1
+Werkzeug>=2.0.1
+Flask-SQLAlchemy>=3.0.0
+flask-marshmallow>=0.14.0
+Flask-Migrate>=4.0.0
+marshmallow-sqlalchemy>=0.28.0
+reportlab>=4.0.0
